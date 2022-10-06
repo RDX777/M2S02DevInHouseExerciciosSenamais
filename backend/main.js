@@ -11,7 +11,7 @@ const DADOSPIZZAS = []
 const DADOSPEDIDOS = []
 
 app.get("/pizzas", (request, response) => {
-  response.status(200).json(DADOSPIZZAS)
+  return response.status(200).json(DADOSPIZZAS)
 })
 
 app.post("/pizzas", (request, response) => {
@@ -23,12 +23,21 @@ app.post("/pizzas", (request, response) => {
     ingredients : request.body.ingredients,
   }
   DADOSPIZZAS.push(pizza)
-  response.status(201).json(pizza)
+  return response.status(201).json(pizza)
 })
 
 
-app.get("/solicitations", (response, request) => {
-  response.status(200).json(DADOSPEDIDOS)
+app.get("/solicitations", (request, response) => {
+  return response.status(200).json(DADOSPEDIDOS)
+})
+
+app.get("/solicitations/:id", (request, response) => {
+  const pedidoLocalizado = DADOSPEDIDOS.find(pedido => pedido.id === request.params.id)
+  if(pedidoLocalizado) {
+    return response.status(200).json(pedidoLocalizado)
+  }
+  return response.status(404).json({message : "Nada foi localizado."})
+  
 })
 
 app.post("/solicitations", (request, response) => {
@@ -43,8 +52,9 @@ app.post("/solicitations", (request, response) => {
 
   }
   DADOSPEDIDOS.push(pedido)
-  response.status(201).json(pedido)
+  return response.status(201).json(pedido)
 })
+
 
 app.listen(PORTA, () => {
     console.log("Servidor iniciado na porta: " + PORTA)
