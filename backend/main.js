@@ -3,7 +3,10 @@ const { v4: uuidv4 } = require('uuid')
 const express = require('express')
 const app = express()
 
+const cors = require("cors")
+
 app.use(express.json())
+app.use(cors())
 
 const PORTA = 3333
 
@@ -68,8 +71,8 @@ app.get("/solicitations/:id", (request, response) => {
 app.delete("/solicitations/:id", (request, response) => {
   const { id } = request.params
 
-  const item = DADOSPEDIDOS.filter(pizza => {
-    return pizza.id !== id    
+  const item = DADOSPEDIDOS.filter(pedido => {
+    return pedido.id !== id    
   })
   DADOSPEDIDOS = item
   return response.status(200).json({message : "Deletado com sucesso"})

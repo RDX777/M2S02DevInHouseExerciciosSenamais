@@ -1,0 +1,1 @@
+export { ListaPizzas } from "./ListaPizzas.jsx"

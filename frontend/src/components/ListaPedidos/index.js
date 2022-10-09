@@ -1,0 +1,1 @@
+export { ListaPedidos } from "./ListaPedidos.jsx"
